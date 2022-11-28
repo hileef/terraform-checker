@@ -14,8 +14,8 @@ builds:
     ldflags:
       - -s
       - -w
-      - -X github.com/terraform-tools/terraform-checker/cmd.commit={{ .FullCommit }}
-      - -X github.com/terraform-tools/terraform-checker/cmd.version={{ .Version }}
+      - -X github.com/hileef/terraform-checker/cmd.commit={{ .FullCommit }}
+      - -X github.com/hileef/terraform-checker/cmd.version={{ .Version }}
       - -X main.buildTime={{ .Date }}
       - -X main.buildRevision={{ .FullCommit }}
       - -X main.buildTag={{ .Version }}
@@ -25,31 +25,31 @@ dockers:
     goos: linux
     goarch: amd64
     image_templates:
-      - "ghcr.io/terraform-tools/terraform-checker:{{ .Version }}-amd64"
+      - "ghcr.io/hileef/terraform-checker:{{ .Version }}-amd64"
     build_flag_templates:
       - "--platform=linux/amd64"
   - use: buildx
     goos: linux
     goarch: arm64
     image_templates:
-      - "ghcr.io/terraform-tools/terraform-checker:{{ .Version }}-arm64v8"
+      - "ghcr.io/hileef/terraform-checker:{{ .Version }}-arm64v8"
     build_flag_templates:
       - "--platform=linux/arm64/v8"
       - "--build-arg=TFSWITCH_ARCH=arm64"
       - "--build-arg=TFLINT_ARCH=arm64"
 
 docker_manifests:
-  - name_template: "ghcr.io/terraform-tools/terraform-checker:{{ .Version }}"
+  - name_template: "ghcr.io/hileef/terraform-checker:{{ .Version }}"
     image_templates:
-      - "ghcr.io/terraform-tools/terraform-checker:{{ .Version }}-amd64"
-      - "ghcr.io/terraform-tools/terraform-checker:{{ .Version }}-arm64v8"
+      - "ghcr.io/hileef/terraform-checker:{{ .Version }}-amd64"
+      - "ghcr.io/hileef/terraform-checker:{{ .Version }}-arm64v8"
 
 snapshot:
   name_template: "{{ .FullCommit }}-SNAPSHOT"
 
 release:
   github:
-    owner: terraform-tools
+    owner: hileef
     name: terraform-checker
 
   # If set to true, will not auto-publish the release.
